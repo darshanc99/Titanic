@@ -1,0 +1,165 @@
+
+# coding: utf-8
+
+# In[2]:
+
+
+#importing all the dependencies
+import pandas as pd
+import numpy as np
+import random as rnd
+#Visualisation
+import seaborn as sns
+import matplotlib.pyplot as plt
+get_ipython().run_line_magic('matplotlib', 'inline')
+#Machine Learning
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC, LinearSVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import Perceptron
+from sklearn.linear_model import SGDClassifier
+from sklearn.tree import DecisionTreeClassifier
+
+
+# In[9]:
+
+
+#Loading the data
+train_df=pd.read_csv('train.csv')
+test_df=pd.read_csv('test.csv')
+combine=[train_df,test_df]
+
+
+# In[12]:
+
+
+#Let's have a look at our dataset
+
+
+# In[10]:
+
+
+#Previewing the data
+train_df.head()
+
+
+# In[13]:
+
+
+train_df.shape #Dataset dimensions
+
+
+# In[15]:
+
+
+train_df.info()
+
+
+# In[16]:
+
+
+test_df.info()
+
+
+# In[17]:
+
+
+train_df.describe()
+
+
+# In[23]:
+
+
+train_df.describe(include=['O'])
+
+
+# In[29]:
+
+
+# Analyzing by pivoting features
+
+
+# In[25]:
+
+
+train_df[['Pclass', 'Survived']].groupby(['Pclass'], as_index=False).mean().sort_values(by='Survived', ascending=False)
+
+
+# In[26]:
+
+
+train_df[["Sex", "Survived"]].groupby(['Sex'], as_index=False).mean().sort_values(by='Survived', ascending=False)
+
+
+# In[27]:
+
+
+train_df[["SibSp", "Survived"]].groupby(['SibSp'], as_index=False).mean().sort_values(by='Survived', ascending=False)
+
+
+# In[28]:
+
+
+train_df[["Parch", "Survived"]].groupby(['Parch'], as_index=False).mean().sort_values(by='Survived', ascending=False)
+
+
+# In[30]:
+
+
+#Correlating numerical features
+
+
+# In[32]:
+
+
+corr_matrix=train_df.corr()
+corr_matrix["Survived"].sort_values(ascending=False)
+
+
+# In[33]:
+
+
+g = sns.FacetGrid(train_df, col='Survived')
+g.map(plt.hist, 'Age', bins=20)
+
+
+# In[35]:
+
+
+# grid = sns.FacetGrid(train_df, col='Pclass', hue='Survived')
+grid = sns.FacetGrid(train_df, col='Survived', row='Pclass', size=2.2, aspect=1.6)
+grid.map(plt.hist, 'Age', alpha=.5, bins=20)
+grid.add_legend();
+
+
+# In[36]:
+
+
+#Correlating categorial features
+
+
+# In[37]:
+
+
+# grid = sns.FacetGrid(train_df, col='Embarked')
+grid = sns.FacetGrid(train_df, row='Embarked', size=2.2, aspect=1.6)
+grid.map(sns.pointplot, 'Pclass', 'Survived', 'Sex', palette='deep')
+grid.add_legend()
+
+
+# In[38]:
+
+
+#Correlating categorial and numerical features
+
+
+# In[39]:
+
+
+# grid = sns.FacetGrid(train_df, col='Embarked', hue='Survived', palette={0: 'k', 1: 'w'})
+grid = sns.FacetGrid(train_df, row='Embarked', col='Survived', size=2.2, aspect=1.6)
+grid.map(sns.barplot, 'Sex', 'Fare', alpha=.5, ci=None)
+grid.add_legend()
+
