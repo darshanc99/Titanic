@@ -1,1 +1,1 @@
-.
+[Here](https://github.com/darshanc99/Titanic/blob/master/Final%20Code/Titanic.ipynb) is the Jupyter Notebook, and [this](https://github.com/darshanc99/Titanic/blob/master/Final%20Code/Titanic.py) is the Python code
