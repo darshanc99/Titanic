@@ -1,3 +1,3 @@
 # Kaggle-Titanic
-## Reference:
-- [this](https://www.kaggle.com/startupsci/titanic-data-science-solutions/notebook)
+---- 
+[Link](https://www.kaggle.com/c/titanic) to problem statement.
